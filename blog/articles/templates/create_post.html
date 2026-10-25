@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая статья</title>
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+<body>
+    <a class="all-posts-link" href="{% url 'archive' %}">Все посты</a>
+
+    <div class="create-post">
+        <h1 class="post-title">Новая статья</h1>
+
+        {% if form.errors %}
+            <div class="errors">{{ form.errors }}</div>
+        {% endif %}
+
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <label for="title">Название:</label>
+                <input type="text" id="title" name="title"
+                       value="{{ form.title|default:'' }}" required>
+            </div>
+
+            <div class="form-row">
+                <label for="text">Текст:</label>
+                <textarea id="text" name="text" rows="10"
+                          required>{{ form.text|default:'' }}</textarea>
+            </div>
+
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>
